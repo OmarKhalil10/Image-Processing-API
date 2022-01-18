@@ -5,7 +5,7 @@ const request = supertest(app);
 
 describe('GET /api/listAllImages', () => {
   it('responds with 200', async () => {
-    const  response = await request.get('/api/listAllImages');
+    const response = await request.get('/api/listAllImages');
     expect(response.status).toBe(200);
   });
 });

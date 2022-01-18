@@ -19,12 +19,16 @@ describe('GET /api/images', () => {
   });
 
   it('responds with 404 if called successfully and image does not exist', async () => {
-    const response = await request.get('/api/images?filename=test&height=100&width=100');
+    const response = await request.get(
+      '/api/images?filename=test&height=100&width=100'
+    );
     expect(response.status).toBe(404);
   });
 
   it('responds with 200 if called successfully and image exist', async () => {
-    const response = await request.get('/api/images?filename=arch&height=100&width=100');
+    const response = await request.get(
+      '/api/images?filename=arch&height=100&width=100'
+    );
     expect(response.status).toBe(200);
   });
 

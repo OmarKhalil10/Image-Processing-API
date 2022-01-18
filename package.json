@@ -7,8 +7,8 @@
     "start": "nodemon src/index.ts",
     "build": "npx tsc",
     "jasmine": "jasmine",
-    "prettier": "prettier --config .prettierrc '*.js' --write",
-    "lint": "eslint '*/**/*.ts' --fix",
+    "prettier": "prettier --config .prettierrc **/**/*.ts --write",
+    "lint": "eslint . --ext .ts",
     "test": "npm run build && npm run jasmine"
   },
   "author": "Omar Khalil",
