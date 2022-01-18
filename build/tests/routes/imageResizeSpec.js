@@ -39,18 +39,39 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var supertest_1 = __importDefault(require("supertest"));
-var index_1 = __importDefault(require("../index"));
-var request = (0, supertest_1.default)(index_1.default);
-describe('GET /', function () {
-    it('responds with 200', function () { return __awaiter(void 0, void 0, void 0, function () {
-        var response;
+var path_1 = __importDefault(require("path"));
+var imageUtilities_1 = __importDefault(require("../../utilities/imageUtilities"));
+var fullImagePath = path_1.default.resolve(__dirname, '../../../my-images/all/arch.jpg');
+var thmbnailImagePath = path_1.default.resolve(__dirname, '../../../my-images/thumbnail/arch.jpg');
+describe('The image Resizer function', function () {
+    it('returns a buffer after resizing an image', function () { return __awaiter(void 0, void 0, void 0, function () {
+        var imageBuffer;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, request.get('/')];
+                case 0: return [4 /*yield*/, (0, imageUtilities_1.default)({
+                        height: 100,
+                        width: 150,
+                        fullImagePath: fullImagePath,
+                        thmbnailImagePath: thmbnailImagePath,
+                    })];
                 case 1:
-                    response = _a.sent();
-                    expect(response.status).toBe(200);
+                    imageBuffer = _a.sent();
+                    expect(imageBuffer).toBeInstanceOf(Buffer);
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+    it('rejects promise if error', function () { return __awaiter(void 0, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, expectAsync((0, imageUtilities_1.default)({
+                        height: 100,
+                        width: 150,
+                        fullImagePath: '',
+                        thmbnailImagePath: thmbnailImagePath,
+                    })).toBeRejected()];
+                case 1:
+                    _a.sent();
                     return [2 /*return*/];
             }
         });

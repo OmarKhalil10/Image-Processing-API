@@ -11,7 +11,7 @@ const thmbnailImagePath = path.resolve(
 );
 
 describe('The image Resizer function', (): void => {
-  it('returns a buffer after resizing an image', async () => {
+  it('returns a buffer after resizing an image', async (): Promise<void> => {
     const imageBuffer: Buffer = await resizeImage({
       height: 100,
       width: 150,
