@@ -60,7 +60,7 @@ This project is part of the Udacity Advanced Web Development Nanodegree
   npm run test
 ```
 
-Run the application
+* Run the Server
 
 ```bash
   npm run start
