@@ -8,11 +8,11 @@ const port = 3000;
 
 app.use('/api', routes);
 
-app.get('/', (req, res): void => {
+app.get('/', (req: express.Request, res: express.Response): void => {
   res.status(200).send('Server is working!');
 });
 
-app.listen(port, () => {
+app.listen(port, (): void => {
   const thumbnailPath = path.resolve(__dirname, '../my-images/thumbnail');
 
   if (!fs.existsSync(thumbnailPath)) {
