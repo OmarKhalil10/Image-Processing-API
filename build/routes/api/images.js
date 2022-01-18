@@ -45,7 +45,7 @@ var imageUtilities_1 = __importDefault(require("../../utilities/imageUtilities")
 var path_1 = __importDefault(require("path"));
 var images = express_1.default.Router();
 images.get('/', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var filename, height, width, fullImagePath, thmbnailImagePath, fullImage, existingThumb;
+    var filename, height, width, fullImagePath, thmbnailImagePath, fullImage, existingThumb, response, response;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -83,32 +83,27 @@ images.get('/', function (req, res) { return __awaiter(void 0, void 0, void 0, f
                     })];
             case 2:
                 existingThumb = _a.sent();
-                if (existingThumb) {
-                    promises_1.default
-                        .readFile(thmbnailImagePath)
-                        .then(function (thumbData) {
-                        res.status(200).contentType('jpg').send(thumbData);
-                    })
-                        .catch(function () {
-                        res.status(500).send('Error occured processing the image');
-                    });
-                }
-                else {
-                    // resize image
-                    (0, imageUtilities_1.default)({
-                        width: width,
-                        height: height,
-                        fullImagePath: fullImagePath,
-                        thmbnailImagePath: thmbnailImagePath,
-                    })
-                        .then(function (resizedImage) {
-                        res.status(200).contentType('jpg').send(resizedImage);
-                    })
-                        .catch(function () {
-                        res.status(500).send('Error occured processing the image');
-                    });
-                }
-                return [2 /*return*/];
+                if (!existingThumb) return [3 /*break*/, 4];
+                return [4 /*yield*/, promises_1.default.readFile(thmbnailImagePath)];
+            case 3:
+                response = _a.sent();
+                res.status(200).contentType('jpg').send(response);
+                if (!response)
+                    res.status(500).send('Error occured processing the image');
+                return [3 /*break*/, 6];
+            case 4: return [4 /*yield*/, (0, imageUtilities_1.default)({
+                    width: width,
+                    height: height,
+                    fullImagePath: fullImagePath,
+                    thmbnailImagePath: thmbnailImagePath,
+                })];
+            case 5:
+                response = _a.sent();
+                res.status(200).contentType('jpg').send(response);
+                if (!response)
+                    res.status(500).send('Error occured processing the image');
+                _a.label = 6;
+            case 6: return [2 /*return*/];
         }
     });
 }); });

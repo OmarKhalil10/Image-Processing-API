@@ -59,28 +59,21 @@ images.get(
       });
 
     if (existingThumb) {
-      fsP
-        .readFile(thmbnailImagePath)
-        .then((thumbData: Buffer) => {
-          res.status(200).contentType('jpg').send(thumbData);
-        })
-        .catch(() => {
+      const response:Buffer = await fsP.readFile(thmbnailImagePath);
+          res.status(200).contentType('jpg').send(response);
+        if (!response)
           res.status(500).send('Error occured processing the image');
-        });
     } else {
       // resize image
-      resizeImage({
+      const response:Buffer = await resizeImage({
         width,
         height,
         fullImagePath,
         thmbnailImagePath,
       })
-        .then((resizedImage: Buffer) => {
-          res.status(200).contentType('jpg').send(resizedImage);
-        })
-        .catch(() => {
+          res.status(200).contentType('jpg').send(response);
+        if (!response)
           res.status(500).send('Error occured processing the image');
-        });
     }
   }
 );
